@@ -30,13 +30,6 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from plot_style import set_tufte_defaults, apply_tufte_style, save_tufte_figure, COLORS
 
-# Import Tufte plotting utilities
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from tda_utils import setup_tufte_plot, TufteColors
-
-
 
 def save_fig(filename):
     """Save plot in the standard minimalist format."""
@@ -133,6 +126,8 @@ def create_main_visualization():
     ax1.spines["right"].set_visible(False)
     ax1.spines["left"].set_position(("outward", 5))
     ax1.spines["bottom"].set_position(("outward", 5))
+    ax1.grid(False)
+    
     ax1.set_title('Risk Probability vs Thermal Margin', fontsize=12, fontweight="bold", loc="left")
     ax1.set_xlabel('Thermal Margin (WAT - Avg Temp, °C)', fontsize=10)
     ax1.set_ylabel('Risk Probability', fontsize=10)
@@ -151,6 +146,8 @@ def create_main_visualization():
     ax2.spines["right"].set_visible(False)
     ax2.spines["left"].set_position(("outward", 5))
     ax2.spines["bottom"].set_position(("outward", 5))
+    ax2.grid(False)
+    
     ax2.set_title('Risk Probability vs Flow Rate', fontsize=12, fontweight="bold", loc="left")
     ax2.set_xlabel('Flow Rate (kSm³/h)', fontsize=10)
     ax2.set_ylabel('Risk Probability', fontsize=10)
@@ -172,6 +169,8 @@ def create_main_visualization():
     ax3.spines["right"].set_visible(False)
     ax3.spines["left"].set_position(("outward", 5))
     ax3.spines["bottom"].set_position(("outward", 5))
+    ax3.grid(False)
+    
     ax3.set_title('Risk Probability vs Water Cut', fontsize=12, fontweight="bold", loc="left")
     ax3.set_xlabel('Water Cut (fraction)', fontsize=10)
     ax3.set_ylabel('Risk Probability', fontsize=10)
@@ -213,6 +212,8 @@ def create_accuracy_visualization():
     ax1.spines["right"].set_visible(False)
     ax1.spines["left"].set_position(("outward", 5))
     ax1.spines["bottom"].set_position(("outward", 5))
+    ax1.grid(False)
+    
     ax1.set_title('ROC Curve: Model Discrimination', fontsize=12, fontweight="bold", loc="left")
     ax1.set_xlabel('False Positive Rate', fontsize=10)
     ax1.set_ylabel('True Positive Rate (Sensitivity)', fontsize=10)
@@ -240,6 +241,8 @@ def create_accuracy_visualization():
     ax2.spines["right"].set_visible(False)
     ax2.spines["left"].set_position(("outward", 5))
     ax2.spines["bottom"].set_position(("outward", 5))
+    ax2.grid(False)
+    
     ax2.set_title('Predicted Probability Distribution', fontsize=12, fontweight="bold", loc="left")
     ax2.set_xlabel('Predicted Risk Probability', fontsize=10)
     ax2.set_ylabel('Frequency', fontsize=10)

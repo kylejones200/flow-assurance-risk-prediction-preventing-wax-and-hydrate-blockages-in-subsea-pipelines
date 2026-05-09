@@ -13,6 +13,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score, classification_report, confusion_matrix
 
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 # Import Tufte plotting utilities
 import sys
 from pathlib import Path
@@ -204,32 +210,32 @@ def analyze_feature_importance(model_results, feature_names):
 
 def main():
     """Run validation tests."""
-    print("=" * 70)
-    print("FLOW ASSURANCE RISK PREDICTION - CODE VALIDATION")
-    print("=" * 70)
+    logger.info("=" * 70)
+    logger.info("FLOW ASSURANCE RISK PREDICTION - CODE VALIDATION")
+    logger.info("=" * 70)
     
     np.random.seed(77)
     
-    print("\n1. Testing pipeline telemetry generation...")
+    logger.info("\n1. Testing pipeline telemetry generation...")
     pipeline_data = generate_pipeline_telemetry(n_segments=4000)
-    print(f"   ✓ Generated {len(pipeline_data)} pipeline segments")
-    print(f"   ✓ Risk rate: {pipeline_data['risk_observed'].mean():.1%}")
-    print(f"   ✓ Crude types: {pipeline_data['crude_type'].nunique()}")
+    logger.info(f"   ✓ Generated {len(pipeline_data)} pipeline segments")
+    logger.info(f"   ✓ Risk rate: {pipeline_data['risk_observed'].mean():.1%}")
+    logger.info(f"   ✓ Crude types: {pipeline_data['crude_type'].nunique()}")
     
-    print("\n2. Testing risk classifier training...")
+    logger.info("\n2. Testing risk classifier training...")
     results = train_risk_classifier(pipeline_data)
-    print(f"   ✓ ROC AUC Score: {results['roc_auc']:.3f}")
-    print(f"   ✓ Sensitivity: {results['sensitivity']:.1%}")
-    print(f"   ✓ Specificity: {results['specificity']:.1%}")
-    print(f"   ✓ Precision: {results['precision']:.1%}")
+    logger.info(f"   ✓ ROC AUC Score: {results['roc_auc']:.3f}")
+    logger.info(f"   ✓ Sensitivity: {results['sensitivity']:.1%}")
+    logger.info(f"   ✓ Specificity: {results['specificity']:.1%}")
+    logger.info(f"   ✓ Precision: {results['precision']:.1%}")
     
-    print("\n3. Testing segment prioritization...")
+    logger.info("\n3. Testing segment prioritization...")
     priority_segments = prioritize_high_risk_segments(results, pipeline_data, top_n=20)
-    print(f"   ✓ Top segments identified: {len(priority_segments)}")
-    print(f"   ✓ Risk categories: {priority_segments['risk_category'].value_counts().to_dict()}")
-    print(f"   ✓ Top risk score: {priority_segments['risk_rank_score'].iloc[0]:.3f}")
+    logger.info(f"   ✓ Top segments identified: {len(priority_segments)}")
+    logger.info(f"   ✓ Risk categories: {priority_segments['risk_category'].value_counts().to_dict()}")
+    logger.info(f"   ✓ Top risk score: {priority_segments['risk_rank_score'].iloc[0]:.3f}")
     
-    print("\n4. Testing feature importance analysis...")
+    logger.info("\n4. Testing feature importance analysis...")
     # Get actual feature names after preprocessing
     numeric_cols = results['X_test'].select_dtypes(include=[np.number]).columns.tolist()
     # OneHotEncoder creates features for each category (minus first which is dropped)
@@ -237,13 +243,13 @@ def main():
     feature_names = numeric_cols + categorical_cols
     
     feature_importance = analyze_feature_importance(results, feature_names)
-    print(f"   ✓ Features analyzed: {len(feature_importance)}")
-    print(f"   ✓ Top feature: {feature_importance.iloc[0]['feature']}")
-    print(f"   ✓ Top 3 explain: {feature_importance.head(3)['cumulative_importance'].iloc[-1]:.0%}")
+    logger.info(f"   ✓ Features analyzed: {len(feature_importance)}")
+    logger.info(f"   ✓ Top feature: {feature_importance.iloc[0]['feature']}")
+    logger.info(f"   ✓ Top 3 explain: {feature_importance.head(3)['cumulative_importance'].iloc[-1]:.0%}")
     
-    print("\n" + "=" * 70)
-    print("ALL TESTS PASSED! ✓")
-    print("=" * 70)
+    logger.info("\n" + "=" * 70)
+    logger.info("ALL TESTS PASSED! ✓")
+    logger.info("=" * 70)
 
 if __name__ == "__main__":
     main()

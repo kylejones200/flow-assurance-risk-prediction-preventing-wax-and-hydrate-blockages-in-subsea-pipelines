@@ -19,13 +19,8 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-# Import Tufte plotting utilities
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from tda_utils import setup_tufte_plot, TufteColors
-
-
 def generate_pipeline_telemetry(n_segments=4000, seed=77):
     """Generate realistic pipeline segment telemetry data."""
     rng = np.random.default_rng(seed)

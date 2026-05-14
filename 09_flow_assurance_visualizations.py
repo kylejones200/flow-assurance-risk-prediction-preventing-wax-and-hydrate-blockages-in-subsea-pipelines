@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import signalplot
 import sys
 import os
 
@@ -8,9 +9,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-# Add parent directory to path to import plot_style
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from plot_style import set_tufte_defaults, apply_tufte_style, save_tufte_figure, COLORS
 
 """
 Generate visualizations for Flow Assurance Risk Prediction blog post.
@@ -28,22 +26,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_curve, roc_auc_score
 
 
-# Add parent directory to path to import plot_style
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Import Tufte plotting utilities
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from tda_utils import setup_tufte_plot, TufteColors
-
-
-
-def save_fig(filename):
-    """Save plot in the standard minimalist format."""
-    plt.tight_layout()
-    plt.savefig(filename, dpi=300, bbox_inches="tight")
-    plt.close()
-
 def generate_pipeline_telemetry(n_segments=4000, seed=77):
     """Generate realistic pipeline segment telemetry data."""
     rng = np.random.default_rng(seed)
@@ -181,7 +165,7 @@ def create_main_visualization(plot: bool = False):
         ax3.set_xlim(-0.05, 1.05)
     
     # Save
-        save_fig('09_flow_assurance_main.png')
+        signalplot.save('09_flow_assurance_main.png')
     logger.info("✓ Created: 09_flow_assurance_main.png")
 
 def create_accuracy_visualization(plot: bool = False):
@@ -248,17 +232,16 @@ def create_accuracy_visualization(plot: bool = False):
         ax2.legend(loc='upper right', frameon=False, fontsize=9)
     
     # Save
-        save_fig('09_flow_assurance_accuracy.png')
+        signalplot.save('09_flow_assurance_accuracy.png')
     logger.info("✓ Created: 09_flow_assurance_accuracy.png")
 
 def main():
     """Generate all visualizations."""
-    set_tufte_defaults()
+    signalplot.apply(font_family='serif')
     logger.info("FLOW ASSURANCE RISK PREDICTION - VISUALIZATION GENERATION")
     logger.info()
     
     # Set serif font globally
-    plt.rcParams['font.family'] = 'serif'
     
     logger.info("Creating visualizations...")
     create_main_visualization()

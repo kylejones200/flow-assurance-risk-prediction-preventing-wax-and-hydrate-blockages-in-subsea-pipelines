@@ -210,9 +210,7 @@ def analyze_feature_importance(model_results, feature_names):
 
 def main():
     """Run validation tests."""
-    logger.info("=" * 70)
     logger.info("FLOW ASSURANCE RISK PREDICTION - CODE VALIDATION")
-    logger.info("=" * 70)
     
     np.random.seed(77)
     
@@ -247,9 +245,7 @@ def main():
     logger.info(f"   ✓ Top feature: {feature_importance.iloc[0]['feature']}")
     logger.info(f"   ✓ Top 3 explain: {feature_importance.head(3)['cumulative_importance'].iloc[-1]:.0%}")
     
-    logger.info("\n" + "=" * 70)
-    logger.info("ALL TESTS PASSED! ✓")
-    logger.info("=" * 70)
+    logger.info("=== ALL TESTS PASSED! ✓ ===")
 
 if __name__ == "__main__":
     main()

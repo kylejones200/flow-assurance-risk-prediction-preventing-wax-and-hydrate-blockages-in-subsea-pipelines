@@ -19,8 +19,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-import sys
-from pathlib import Path
 def generate_pipeline_telemetry(n_segments=4000, seed=77):
     """Generate realistic pipeline segment telemetry data."""
     rng = np.random.default_rng(seed)

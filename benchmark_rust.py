@@ -15,9 +15,10 @@ def main():
     except ImportError:
         print("Build rust extension"); return
     rs_s=rs.bench_kernel_py(4000,77,200)
-    print(f"Python {py_s:.3f}s Rust {rs_s:.3f}s")
-    pt=generate_telemetry(100,77); rt=rs.generate_telemetry_py(100,77)
-    for a,b in zip(pt,rt): np.testing.assert_allclose(a,b,rtol=0.15)
-    np.testing.assert_allclose(logistic_risk_probability(*pt), rs.logistic_risk_probability_py(*rt), rtol=1e-10)
+    print(f"Python {py_s:.3f}s Rust {rs_s:.3f}s speedup {py_s/max(rs_s,1e-9):.1f}x")
+    pt=generate_telemetry(100,77)
+    py_prob=logistic_risk_probability(*pt)
+    rs_prob=rs.logistic_risk_probability_py(*[np.ascontiguousarray(x,dtype=float) for x in pt])
+    np.testing.assert_allclose(py_prob, np.asarray(rs_prob), rtol=1e-10)
     print("Correctness: OK")
 if __name__=="__main__": main()

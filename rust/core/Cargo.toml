@@ -1,0 +1,9 @@
+[package]
+name = "flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_core"
+description = "Telemetry + logistic risk from thermal margin"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"

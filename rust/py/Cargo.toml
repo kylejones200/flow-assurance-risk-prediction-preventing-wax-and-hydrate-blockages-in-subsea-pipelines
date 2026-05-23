@@ -1,0 +1,15 @@
+[package]
+name = "flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_rs"
+description = "Python bindings (PyO3) for flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_core = { path = "../core" }
+pyo3 = { version = "0.28", features = ["extension-module"] }
+numpy = "0.28"

@@ -1,0 +1,13 @@
+[package]
+name = "flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_bench"
+description = "Standalone Rust benchmark (no Python)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "bench"
+path = "src/main.rs"
+
+[dependencies]
+flow_assurance_risk_prediction_preventing_wax_and_hydrate_blockages_in_subsea_pipelines_core = { path = "../core" }

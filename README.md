@@ -11,14 +11,7 @@ Flow assurance risk prediction is about understanding the complex interaction be
 
 Subsea oil and gas production operates in one of the most challenging flow assurance environments. Cold seawater temperatures (4--15°C), high pressures (50--200 bar), and long tiebacks (5--50 km) create ideal conditions for wax precipitation and hydrate formation. A single blockage can shut in production for weeks, cost $50--200 million in lost revenue, and require expensive intervention vessels.
 
-## About
 
-Place the code for this article in this repository.
-The original article export is saved as `article.md`.
-
-## Files
-
-Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
 
 ## Rust performance port
 
